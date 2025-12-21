@@ -1,0 +1,10 @@
+profile {
+    # When alone, use laptop screen
+    output eDP-1 enable mode 1920x1080@60
+}
+
+profile {
+    # When HDMI is plugged in, disable laptop and use HDMI at 144Hz
+    output eDP-1 disable
+    output HDMI-A-1 enable mode 1920x1080@144
+}

@@ -1,0 +1,138 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "width": 1870,
+    "spacing": 4,
+    "margin-top": 12,
+    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["clock"],
+    "modules-right": [
+        "custom/cpu",
+        "custom/gpu",
+        "network",
+        "pulseaudio",
+        "custom/battery",
+        "group/drawer"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "spacing": 16,
+        "format": "{icon}",
+        "format-icons": {
+            "urgent": " ",
+            "active": " ",
+            "default": " ",
+        },
+    },
+
+    "clock": {
+        "timezone": "Asia/Kuala_Lumpur",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%a, %d-%m %I:%M %p}", 
+    },
+
+    "custom/cpu": {
+        "exec": "~/.config/waybar/cpu_info.sh",
+        "return-type": "json",
+        "format": "{icon}: {text}",
+        "interval": 2,
+        "format-icons": {
+            "default": " " 
+        }
+    },
+
+    "custom/gpu": {
+        "exec": "~/.config/waybar/gpu_info.sh",
+        "return-type": "json",
+        "format": "{icon}: {percentage}%{text}",
+        "interval": 2,
+        "format-icons": {
+            "default": "󰚗 "
+        }
+    },
+
+    "custom/battery": {
+        "exec": "~/.config/waybar/battery_info.sh",
+        "return-type": "json",
+        "format": "{icon}: {percentage}%",
+        "interval": 2,
+        "format-icons": {
+            "normal": [" "," "," "," "," "],
+            "charging":[" 󱐋"," 󱐋"," 󱐋"," 󱐋"," 󱐋"],
+            "plugged": " ",
+        }
+    },
+
+    "network": {
+        "format-wifi": "{icon}: {essid}",
+        "format-ethernet": "{icon}: {bandwidthTotalBytes}",
+        "format-disconnected": "{icon}",
+        "tooltip-format": "{essid} via {gwaddr}",
+        "format-icons": {
+            "wifi":["󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
+            "ethernet": "󰈀 ",
+            "disconnected": " ",
+        },
+        "max-length": 10,
+        "interval": 2,
+    },
+
+    "pulseaudio": {
+        "format": "{icon}: {volume}%",
+        "format-bluetooth": " {icon} {volume}%",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": " ",
+            "default": [" ", " ", " "],
+        },
+        "on-click": "pavucontrol",
+    },
+
+    "tray": {
+        "spacing": 10,
+    },
+
+    "custom/tray-icon": {
+        "format": "{icon}", // Use  (left chevron) or 
+        "tooltip": false,
+        "format-icons": {
+            "default": ""
+        }
+    },
+     
+    "group/drawer": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "transition-left-to-right": false,
+            "click-to-reveal": true, // This is the key setting for click-only
+        },
+        "modules": [
+            "custom/tray-icon", // The clickable chevron
+            "tray"              // The hidden tray
+        ]
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚",
+            "none": "󰂜",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󰂚",
+            "inhibited-none": "󰂜",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰂛",
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.1 && swaync-client -t -sw",
+        "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+        "escape": true,
+    },
+}

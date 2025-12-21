@@ -1,0 +1,7 @@
+.config/hypr/wallpapers/
+.oh-my-zsh/*
+
+
+
+# Exception
+!.oh-my-zsh/custom/
