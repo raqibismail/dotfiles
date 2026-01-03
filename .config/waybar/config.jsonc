@@ -1,190 +1,164 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 35,
-    "width": 1870,
-    "spacing": 4,
-    "margin-top": 12,
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-    "modules-center": ["clock"],
-    "modules-right": [
-        "custom/cpu",
-        "custom/gpu",
-        "network",
-        "pulseaudio",
-        "custom/battery",
-        "custom/docker",
-        "custom/bluetooth",
-        "group/drawer"
-    ],
-
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "spacing": 16,
-        "format": "{icon}",
-        "format-icons": {
-            "urgent": " ",
-            "active": " ",
-            "default": " ",
-        },
-        "persistent-workspaces":{
-            "*": 4
-        }
+  "layer": "top",
+  "position": "top",
+  "height": 35,
+  "width": 1870,
+  "spacing": 2,
+  "margin-top": 12,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "group/monitor-drawer",
+    "network",
+    "custom/docker",
+    "pulseaudio",
+    "custom/battery",
+    "group/tray-drawer"
+  ],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "<span font='13'>{icon}</span>",
+    "format-icons": {
+      "urgent": "",
+      "active": "",
+      "default": "",
     },
-
-    "clock": {
-        "timezone": "Asia/Kuala_Lumpur",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%a, %d-%m %I:%M %p}", 
-    },
-
-    "custom/cpu": {
-        "exec": "~/.config/waybar/scripts/cpu_info.sh",
-        "return-type": "json",
-        "format": "{icon}: {text}",
-        "interval": 5,
-        "format-icons": {
-            "default": " " 
-        }
-    },
-
-    "custom/gpu": {
-        "exec": "~/.config/waybar/scripts/gpu_info.sh",
-        "return-type": "json",
-        "format": "{icon}: {text}",
-        "interval": 5,
-        "format-icons": {
-            "default": "󰚗 "
-        }
-    },
-
-    "custom/battery": {
-        "exec": "~/.config/waybar/scripts/battery_info.sh",
-        "return-type": "json",
-        "format": "{icon}: {percentage}%",
-        "interval": 5,
-        "format-icons": {
-            "default": [" "," "," "," "," "],
-            "charging":[" 󱐋"," 󱐋"," 󱐋"," 󱐋"," 󱐋"],
-            "plugged": " ",
-        }
-    },
-
-    "network": {
-        "format-wifi": "{icon}: {essid}",
-        "format-ethernet": "{icon}: {bandwidthTotalBytes}",
-        "format-disconnected": "{icon}",
-        "tooltip-format": "{essid}",
-        "format-icons": {
-            "wifi":["󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
-            "ethernet": "󰈀 ",
-            "disconnected": " ",
-        },
-        "max-length": 10,
-        "interval": 5,
-        "on-click":"~/.config/waybar/scripts/network-manager.sh"
-    },
-
-    "pulseaudio": {
-        "format": "{icon}: {volume}%",
-        "format-bluetooth": " {icon} {volume}%",
-        "format-muted": "󰝟 Muted",
-        "format-icons": {
-            "headphone": " ",
-            "default": [" ", " ", " "],
-        },
-        "on-click": "pavucontrol",
-    },
-
-    "tray": {
-        "spacing": 10,
-    },
-
-    "custom/tray-icon": {
-        "format": "{icon}", // Use  (left chevron) or 
-        "tooltip": false,
-        "format-icons": {
-            "default": ""
-        }
-    },
-
-    "group/drawer": {
-        "orientation": "inherit",
-        "drawer": {
-            "transition-duration": 500,
-            "transition-left-to-right": false,
-            "click-to-reveal": true, // This is the key setting for click-only
-        },
-        "modules": [
-            "custom/tray-icon", // The clickable chevron
-            "tray"              // The hidden tray
-        ]
-    },
-
-    "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "󰂚",
-            "none": "󰂜",
-            "dnd-notification": "󰂛",
-            "dnd-none": "󰂛",
-            "inhibited-notification": "󰂚",
-            "inhibited-none": "󰂜",
-            "dnd-inhibited-notification": "󰂛",
-            "dnd-inhibited-none": "󰂛",
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "sleep 0.1 && swaync-client -t -sw",
-        "on-click-right": "sleep 0.1 && swaync-client -d -sw",
-        "escape": true,
-    },
-
-    "custom/power": {
-        "format" : "⏻ ",
-        "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "~/.config/waybar/scripts/power_menu.xml",
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate",
-        },
-    },
-
-    "custom/docker": {
-        "format": "{} ", 
-        "return-type": "json",
-        "exec": "~/.config/waybar/scripts/status_check.sh docker.service  ",
-        "interval": 2, // Lower interval makes the icon appear/disappear faster
-        "on-click": "zsh -c 'source ~/.zshrc && tog-docker'", 
-        "tooltip": true,
-        "hide-empty-text": true
-    },
-
-    "custom/bluetooth": {
-        "format": "{}",
-        "return-type": "json",
-        "exec": "~/.config/waybar/scripts/status_check.sh bluetooth.service",
-        "interval": 5,
-        "on-click": "blue-on",
-        "on-click-right": "blue-off"
-    },
-
-    "custom/touchpad": {
-        "exec": "cat /dev/shm/touchpad_state",
-        "return-type": "",
-        "format": "{}",
-        "format-icons": {
-            "1": "󰟔", // Icon for enabled
-            "0": "󰟕"  // Icon for disabled
-        },
-        "interval": 1,
-        "on-click": "toggle-touchpad"
+    "persistent-workspaces": {
+      "*": 4
     }
-
-
+  },
+  "hyprland/window": {
+    "format": "󰣆 {initialTitle}",
+    "max-length": 15,
+    "scroll": true
+  },
+  "clock": {
+    "timezone": "Asia/Kuala_Lumpur",
+    "tooltip-format": "{:%a, %d-%m-%y}",
+    "format": "{:%a%e - %H:%M}"
+  },
+  "pulseaudio": {
+    "format": "<span font='13'>{icon}</span> {volume}%",
+    "format-bluetooth": "<span font='13'>{icon}</span> {volume}%",
+    "format-muted": "<span font='13'></span>",
+    "format-icons": {
+      "headphone": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol",
+    "reverse-scrolling": true
+  },
+  "custom/battery": {
+    "exec": "~/.config/waybar/scripts/battery_info.sh",
+    "return-type": "json",
+    "format": "<span font='13'>{icon}</span> {percentage}%",
+    "interval": 5,
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "charging": [
+        "󱐋"
+      ],
+      "plugged": "󰚥"
+    }
+  },
+  "network": {
+    "format-wifi": "<span font='13'>{icon}</span>",
+    "format-ethernet": "<span font='13'>{icon}</span>: {bandwidthTotalBytes}",
+    "format-disconnected": "<span font='13'>{icon}</span>",
+    "tooltip-format": "{essid}",
+    "format-icons": {
+      "wifi": [
+        "",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ],
+      "ethernet": "󰈀 ",
+      "disconnected": " ",
+    },
+    "max-length": 10,
+    "interval": 5,
+    "on-click": "~/.config/waybar/scripts/network-manager.sh"
+  },
+  "tray": {
+    "spacing": 10,
+    "icon-size": 16
+  },
+  "custom/tray-icon": {
+    "format": "<span font='13'>{icon}</span>",
+    "tooltip": false,
+    "format-icons": {
+      "default": ""
+    }
+  },
+  "group/tray-drawer": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/tray-icon",
+      "tray"
+    ]
+  },
+  "custom/monitor-icon": {
+    "format": "<span font='13'>{icon}</span>",
+    "tooltip": false,
+    "format-icons": {
+      "default": ""
+    }
+  },
+  "custom/cpu": {
+    "exec": "~/.config/waybar/scripts/cpu_info.sh",
+    "return-type": "json",
+    "format": "󰻠 {text}",
+    "interval": 5
+  },
+  "custom/gpu": {
+    "exec": "~/.config/waybar/scripts/gpu_info.sh",
+    "return-type": "json",
+    "format": "󰾲 {text}",
+    "interval": 5
+  },
+  "group/monitor-drawer": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/monitor-icon",
+      "custom/gpu",
+      "custom/cpu"
+    ]
+  },
+  "custom/docker": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/status_check.sh docker.service  ",
+    "interval": 2, // Lower interval makes the icon appear/disappear faster
+    "hide-empty-text": true
+  },
+  "custom/bluetooth": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/status_check.sh bluetooth.service",
+    "interval": 2,
+  },
 }

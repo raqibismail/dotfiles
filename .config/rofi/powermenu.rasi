@@ -1,0 +1,50 @@
+@import "tokyonight.rasi"
+
+window {
+    width:            600px;
+    location:         center;
+    anchor:           center;
+    border-radius:    24px;
+    background-color: @bg;
+    border:           2px;
+    border-color:     @blue;
+}
+
+mainbox {
+    background-color: transparent;
+    children:         [ "listview" ]; 
+}
+
+listview {
+    background-color: transparent;
+    columns:          3;
+    row:              2;
+    lines:            1;
+    spacing:          20px;
+    cycle:            true;
+    dynamic:          true;
+    layout:           vertical;
+    padding:          30px; /* Space around the 4 buttons */
+}
+
+element {
+    background-color: @bg-alt;
+    text-color:       @fg;
+    orientation:      vertical; 
+    border-radius:    20px;
+    padding:          35px 0px; 
+}
+
+element selected {
+    background-color: @blue; /* Use your 70% blue suffix here if you want */
+    text-color:       @bg;
+    border:           0px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    font:            "JetBrainsMono Nerd Font 32"; /* Big Icons */
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+}

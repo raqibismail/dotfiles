@@ -12,9 +12,9 @@ CURRENT_STATE=$(cat $STATE_FILE)
 if [ "$CURRENT_STATE" -eq "1" ]; then
     hyprctl keyword "device[$DEVICE]:enabled" false
     echo "0" > $STATE_FILE
-    hyprctl notify 1 2000 "rgb(ff4444)" "Touchpad Disabled"
+    notify-send -t 1000 "Touchpad" "Touchpad Disabled"
 else
     hyprctl keyword "device[$DEVICE]:enabled" true
     echo "1" > $STATE_FILE
-    hyprctl notify 1 2000 "rgb(44ff44)" "Touchpad Enabled"
+    notify-send -t 1000 "Touchpad" "Touchpad Enabled"
 fi

@@ -1,24 +1,27 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
 DIR="$HOME/Pictures/Screenshot"
 mkdir -p "$DIR"
 
-# 1. Capture geometry
-if ! GEOM=$(slurp -b 00000088 -c ffffffff -w 2); then
-    exit 0
-fi
+# Rofi Menu
+options="Region\nFullscreen\nWindow"
+choice=$(echo -e "$options" | rofi -dmenu -p "Screenshot" -theme-str 'window {width: 300px; height: 300px;}')
 
-FILE="$DIR/$(date +'%Y-%m-%d-%H%M%S_screenshot.png')"
-
-# 2. Take screenshot and pipe to both the file and the clipboard
-# The '-' tells grim to output to stdout
-# 'tee' writes that output to the $FILE and passes it to wl-copy
-grim -g "$GEOM" - | tee "$FILE" | wl-copy -t image/png
-
-# 3. Notify
-notify-send \
-    "Screenshot Captured" \
-    "Saved to $FILE and copied to clipboard" \
-    -i camera-photo
+case "$choice" in
+    Region)
+        GEOM=$(slurp -b 00000088 -c ffffffff -w 2) || exit 1
+        # 1. Take screenshot
+        # 2. tee sends it to wl-copy AND swappy simultaneously
+        grim -g "$GEOM" - | tee >(wl-copy) | swappy -f -
+        ;;
+    Fullscreen)
+        grim - | tee >(wl-copy) | swappy -f -
+        ;;
+    Window)
+        GEOM=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+        grim -g "$GEOM" - | tee >(wl-copy) | swappy -f -
+        ;;
+    *)
+        exit 0
+        ;;
+esac

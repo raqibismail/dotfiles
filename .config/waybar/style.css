@@ -1,146 +1,93 @@
-/* Gruvbox Dark theme for Waybar */
+@import "myColors.css";
+
+/* 1. Global Reset & Performance */
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrains Mono Nerd Font", monospace;
-    font-size: 13px;
-    font-weight: 500; /* Try 500 or 600 */
+    all: unset;
+    font-size: 15px; 
+    font-family: "JetBrainsMono Nerd Font Propo", sans-serif;
+    font-feature-settings: '"zero", "tnum", "ss01", "ss02", "ss03", "cv01"';
+}
+
+/* 2. Window/Bar Base */
+window#waybar {
     background: transparent;
 }
 
-/* window#waybar { */
-/*   background-color: #282828; */
-/*   border: 2px solid #3c3836; */
-/*   border-radius: 8px; */
-/*   color: #ebdbb2; */
-/*   opacity: 1; */
-/* } */
-
-/* Right Modules */
-#custom-cpu,
-#custom-gpu,
+/* 3. The Pill Base (Unified Styling)
+ * Added min-width and fixed line-height to fix centering issues.
+ */
+#workspaces,
+#window,
+#clock,
 #pulseaudio,
 #network,
 #custom-battery,
-#custom-docker,
-#custom-bluetooth
-#custom-touchpad
-{
-    background: transparent;
-    border: 1px solid #ebdbb2; /* Added 'solid' */
-    border-radius: 6px;
-    color: #ebdbb2;           /* Changed to light color to match border */
-    padding: 0 10px;          /* Added 'px' unit */
-    margin: 4px 2px;          /* Added margin to separate the cards */
+#tray,
+#custom-monitor-icon,
+#custom-tray-icon,
+#custom-cpu,
+#custom-gpu,
+#custom-docker {
+    background: rgba(31, 35, 53, 0.85); 
+    color: @foreground;
+    padding: 2px 12px;
+    margin: 4px 3px;
+    border-radius: 12px;
+    border: 2px solid rgba(187, 154, 247, 0.4);
+    border-bottom: 3px solid @accent-blue; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Center Modules */
-#clock {
-    background: transparent;
-    border: 1px solid #ebdbb2; /* Added 'solid' */
-    border-radius: 6px;
-    color: #ebdbb2;
-    padding: 0 10px;
-    margin: 4px;
-}
-
-/* Left Modules */
-#workspaces,
-#submap {
-    background: transparent;
-    border: 1px solid #ebdbb2; /* Added 'solid' */
-    border-radius: 6px;
-    color: #ebdbb2;
-    padding: 0 5px;
-    margin: 4px;
-}
-
+/* 4. Workspaces (Interactive) */
 #workspaces button {
     padding: 0 8px;
-    transition: all 0.2s ease-in-out;
+    color: @foreground-alt;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: @accent-blue;
+}
+
+#workspaces button.urgent {
+    color: @accent-red;
 }
 
 #workspaces button:hover {
-    color: #fe8019;
+    background: rgba(122, 162, 247, 0.1);
+    color: @accent-cyan;
 }
 
-#mode {
-    background-color: #fe8019;
-    color: #282828;
-    padding: 0 8px;
-    font-weight: bold;
-}
+/* 5. Module Accents */
+#window { color: @accent-cyan; }
+#pulseaudio { color: @accent-blue; }
+#network { color: @accent-cyan; }
+#custom-battery { color: @accent-green; }
+#custom-cpu { color: @accent-red; }
+#custom-gpu { color: @accent-purple; }
+#custom-monitor-icon, #custom-tray-icon { color: @accent-yellow; }
 
-#network.disconnected {
-    color: #fb4934;
-}
-
-
-#tray > .passive {
-    opacity: 0.6;
-}
-
-#tray > .needs-attention {
-    opacity: 1;
-    background-color: #fb4934;
-} 
-
-tooltip {
-    background: #3c3836;
-    border: 1px solid #504945;
-    border-radius: 5px;
-    color: #ebdbb2;
-}
-
-tooltip label {
-    color: #ebdbb2;
-}
-
-
+/* 6. Special States & Animations */
 #custom-battery.critical {
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    color: @accent-red;
+    animation: blink 1s linear infinite;
 }
 
 @keyframes blink {
     to {
-        opacity: 0;
+        background-color: @accent-red;
+        color: @background;
     }
 }
 
-/* Styling the card container for the tray */
-#drawer {
-    background: transparent;
-    border: 1px solid #ebdbb2; /* Added 'solid' */
-    border-radius: 6px;
-    color: #ebdbb2;           /* Changed to light color to match border */
-    padding: 0 10px;          /* Added 'px' unit */
-    margin: 4px 2px;          /* Added margin to separate the cards */
+/* 7. Tooltips (GTK Layer) */
+tooltip {
+    background: rgba(60, 56, 54, 0.9);
+    border-radius: 8px;
+    border: 1px solid @accent-blue;
 }
 
-/* Specific styling for the chevron icon */
-#custom-tray-icon {
-    color: #ebdbb2;
-}
-
-/* Ensure icons inside have proper sizing */
-#tray {
-    background: transparent;
-    border: none; /* Border is handled by the group */
-    padding: 0 10px 0 0;
-}
-
-#custom-docker.active {
-    color: #2496ed; /* Docker Blue */
-}
-
-#custom-touchpad.active {
-    color: #2496ed; /* Docker Blue */
-}
-
-#custom-bluetooth.active {
-    color: #0082fc; /* Bluetooth Blue */
+tooltip label {
+    color: @foreground;
+    padding: 8px;
 }

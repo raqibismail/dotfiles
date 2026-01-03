@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -22,13 +23,10 @@ keymap("v", ">", ">gv", opts)
 keymap("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 keymap("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- The "Keep Clipboard" Paste
--- This lets you paste over something without losing your copied text
-keymap("x", "<leader>p", [["_dP]], { desc = "Paste without overwriting register" })
-
 -- Yank to system clipboard (Standard for most Linux users)
 keymap({"n", "v"}, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
 keymap("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
 
 -- Delete to void register (Doesn't overwrite what you copied)
+keymap("x", "<leader>p", [["_dP]], { desc = "Paste without overwriting register" })
 keymap({"n", "v"}, "<leader>d", [["_d]], { desc = "Delete without saving to register" })

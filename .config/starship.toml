@@ -5,13 +5,13 @@
 [package]
 disabled = true
 
-format = """$username $directory [on](bold #928374) $git_branch$git_status$battery$character"""
+format = """$directory [on](bold #928374) $git_branch$git_status$battery$character"""
 
 [username]
-style_user = "bold #d65d0e" # Gruvbox Orange
+style_user = "bold #d65d0e"
 format = "[$user]($style)"
 disabled = false
-show_always = true # This ensures it shows even if you aren't on SSH
+show_always = false
 
 [directory]
 style = "bold #458588" # Gruvbox Blue
