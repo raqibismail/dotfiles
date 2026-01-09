@@ -1,38 +1,79 @@
-.control-center .notification-row { background-color: unset; }
-
-.control-center .notification-row .notification-background .notification .notification-content,
-.floating-notifications .notification-row .notification-background .notification .notification-content {
-  border: unset;
-  border-radius: 1.159rem;
-  background-color: var(--bg-card);
-  padding: 0.818rem;
+.notification-row,
+.notification-background {
+  all: unset;
 }
 
-/* Priority Colors */
-.notification.low label, .notification.normal label { color: var(--text-secondary); }
-.notification.low .body, .notification.normal .body { color: var(--text-muted); }
+.notification-row {
+  background: none;
+  outline: none;
+  padding: 0;
+}
 
-.notification.critical .notification-content { background-color: var(--bg-critical); }
-.notification.critical label { color: var(--text-critical); }
+.control-center .notification,
+.floating-notifications .notification {
+  border-radius: 1.159rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px var(--shadow-main);
+  margin: 6px 0;
+  padding: 12px;
+}
 
-/* Typography */
+.widget-notifications {
+  padding: 0;
+}
+
+.control-center-list {
+  padding: 0;
+}
+
+.notification-group {
+  padding: 0;
+  background-color: transparent;
+}
+
+
+/* Critical State */
+.notification.critical {
+  background-color: var(--bg-critical) !important;
+  border: 1px solid var(--border-glow);
+}
+
+.notification.critical .summary,
+.notification.critical .body {
+  color: var(--text-critical) !important;
+}
+
+/* Content Layout */
+.notification-content .text-box {
+  margin-left: 12px;
+}
+
 .notification-content .summary {
-  font-family: 'Gabarito', 'Lexend', sans-serif;
-  font-size: 0.9909rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.notification-content .body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
 }
 
 .notification-content .time {
-  font-family: 'Geist', sans-serif;
-  font-size: 0.8291rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-right: 24px;
 }
 
-/* Close Button */
+/* Buttons */
 .close-button {
-  background-color: unset;
-  border-radius: 100%;
-  border: none;
-  min-height: 20px;
-  min-width: 20px;
+  background: transparent;
+  border-radius: 9999px;
+  color: var(--text-primary);
 }
-.close-button:hover { background-color: rgba(255, 255, 255, 0.15); }
+
+.close-button:hover {
+  background-color: var(--accent-hover);
+}

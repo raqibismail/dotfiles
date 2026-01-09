@@ -1,103 +1,154 @@
-@import url("colors.css");
-
+/* Global Reset & Scrollbar Removal */
 * {
   font-size: 14px;
-  font-family: "Noto Sans";
-  transition: 100ms;
-  box-shadow: unset;
+  font-family: "Adwaita Sans", "JetBrainsMono NFP";
+  transition: 150ms ease;
+  box-shadow: none;
 }
 
-/* Shared Slider/Trough Styles */
-.control-center trough {
-  border-radius: 9999px;
-  -gtk-outline-radius: 9999px;
-  min-width: 0.545rem;
-  background-color: transparent;
+scrollbar, 
+scrollbar trough, 
+scrollbar slider {
+  background: transparent;
+  border: none;
+  min-width: 0px;
+  opacity: 0;
 }
 
-.control-center slider {
-  border-radius: 9999px;
-  -gtk-outline-radius: 9999px;
-  min-width: 0.273rem;
-  min-height: 2.045rem;
-  background-color: rgba(199, 197, 208, 0.31);
-}
-
-.control-center slider:hover {
-  background-color: rgba(199, 197, 208, 0.448);
-}
-
-.control-center slider:active {
-  background-color: #77767e;
-}
-
+/* Main Container */
 .control-center {
-  border-radius: 1.705rem;
-  -gtk-outline-radius: 1.705rem;
-  border-top: 1px solid var(--border-light);
-  border-left: 1px solid var(--border-light);
-  border-right: 1px solid var(--border-dark);
-  border-bottom: 1px solid var(--border-dark);
-  box-shadow: 0px 2px 3px var(--shadow-main);
-  margin: 7px;
   background-color: var(--bg-main);
-  padding: 1.023rem;
+  border-radius: 1.705rem;
+  border: 1px solid var(--border-glow);
+  box-shadow: 0px 10px 30px 5px var(--shadow-main),
+              0px 0px 15px 0px var(--accent-glow);
+  margin: 10px;
+  padding: 2rem;
 }
 
 /* Title Widget */
-.widget-title { padding: 0.341rem; margin: unset; }
+.widget-title {
+  margin-bottom: 8px;
+  padding: 0;
+}
+
 .widget-title label {
-  font-family: 'Gabarito', 'Lexend', sans-serif;
   font-size: 1.364rem;
   color: var(--text-primary);
-  margin-left: 0.941rem;
 }
-.widget-title button {
-  border: unset;
-  background-color: unset;
-  border-radius: 1.159rem;
-  -gtk-outline-radius: 1.159rem;
-  padding: 0.141rem 0.141rem;
-  margin-right: 0.841rem;
-}
-.widget-title button:hover { background-color: var(--accent-hover); }
 
-/* Buttons Grid */
-.widget-buttons-grid {
-  border-radius: 1.159rem;
-  background-color: var(--bg-widget);
-  padding: unset;
-}
-.widget-buttons-grid > flowbox > flowboxchild > button {
+.widget-title button {
+  padding: 0;
   border: none;
-  background-color: unset;
+  background-color: transparent;
   border-radius: 9999px;
-  min-width: 5.522rem;
-  min-height: 2.927rem;
+  color: var(--text-primary);
 }
-.widget-buttons-grid > flowbox > flowboxchild > button:checked {
-  background-color: var(--accent-orange);
+
+.widget-title button:hover {
+  background-color: var(--accent-hover);
 }
-.widget-buttons-grid > flowbox > flowboxchild > button:checked label {
+
+/* Buttons Grid (Wi-Fi, Bluetooth, etc) */
+.widget-buttons-grid {
+  border-radius: 12px;
+  background-color: var(--bg-widget);
+  padding: 4px;
+  margin: 8px 0;
+  box-shadow: 0 4px 12px var(--shadow-main);
+}
+
+.widget-buttons-grid button {
+  border: none;
+  background-color: transparent;
+  min-width: 5.5rem;
+  min-height: 3rem;
+  border-radius: 10px;
+}
+
+.widget-buttons-grid button label{
+  font-size: medium;
+}
+
+.widget-buttons-grid button:checked {
+  background-color: var(--accent-checked);
+}
+
+.widget-buttons-grid button:checked label {
   color: var(--text-dark);
 }
 
-/* Volume Widget */
+/* Volume & Sliders */
 .widget-volume {
   background-color: var(--bg-widget);
-  padding: 8px; margin: 8px;
+  padding: 12px 20px;
+  margin: 8px 0 10px 0;
   border-radius: 1.159rem;
-}
-.widget-volume trough slider {
-  background-color: var(--accent-orange);
-  border-radius: 100%;
-  min-height: 1.25rem;
+  box-shadow: 0 4px 12px var(--shadow-main);
 }
 
-/* MPRIS Widget */
+/* Target the expander button specifically */
+.widget-volume button {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Change color only when open (checked) */
+.widget-volume button:checked {
+  color: var(--accent-checked);
+  background: transparent; /* Force background to stay clear */
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Remove the 'focus' ring that GTK adds when you click it */
+.widget-volume button:focus,
+.widget-volume button:hover,
+.widget-volume button:active {
+  border: none;
+  outline: none;
+  background: transparent; /* Optional: subtle hint it's interactive */
+}
+
+.per-app-volume {
+  all: unset;
+}
+
+.widget-volume trough {
+  background-color: var(--bg-card);
+  border-radius: 999px;
+  min-height: 1px;
+}
+
+.widget-volume slider {
+  background-color: var(--accent-checked);
+  border-radius: 999px;
+  min-height: 1.2rem;
+  min-width: 1.2rem;
+}
+
+/* Music Player (MPRIS) */
 .widget-mpris {
   background-color: var(--bg-widget);
-  padding: 8px; margin: 8px;
+  padding: 0;
+  margin: 8px 0;
   border-radius: 1.159rem;
+  box-shadow: 0 4px 12px var(--shadow-main);
 }
-.widget-mpris-title { font-weight: bold; font-size: 1.25rem; }
+
+.widget-mpris-player {
+  padding: 0;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.widget-mpris-subtitle {
+  color: var(--text-secondary);
+}
